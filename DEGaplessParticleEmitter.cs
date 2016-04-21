@@ -37,7 +37,7 @@ namespace DestructionEffects
 		{
 			if(emit)
 			{
-				Vector3 velocity = (part == null) ? rb.velocity : part.rigidbody.velocity;
+				Vector3 velocity = (part == null) ? rb.velocity : part.GetComponent<Rigidbody>().velocity;
 				Vector3 originalLocalPosition = gameObject.transform.localPosition;
 				Vector3 originalPosition = gameObject.transform.position;
 				Vector3 startPosition = gameObject.transform.position + (velocity * Time.fixedDeltaTime);
@@ -58,7 +58,7 @@ namespace DestructionEffects
 		
 		public void EmitParticles()
 		{
-			Vector3 velocity = (part == null) ? rb.velocity : part.rigidbody.velocity;
+			Vector3 velocity = (part == null) ? rb.velocity : part.GetComponent<Rigidbody>().velocity;
 			Vector3 originalLocalPosition = gameObject.transform.localPosition;
 			Vector3 originalPosition = gameObject.transform.position;
 			Vector3 startPosition = gameObject.transform.position + (velocity * Time.fixedDeltaTime);
