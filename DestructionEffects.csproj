@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>DestructionEffects</RootNamespace>
     <AssemblyName>DestructionEffects</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -66,6 +66,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -97,4 +98,15 @@
   <ItemGroup>
     <Content Include="bin\Release\DestructionEffects.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\Plugins\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+"D:\pdb2mdb\pdb2mdb.exe" "$(TargetFileName)"
+xcopy /Y "$(TargetDir)$(TargetName).pdb" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"
+xcopy /Y "$(TargetDir)$(TargetName).dll.mdb" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"
+)
+xcopy /Y "$(TargetPath)" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
