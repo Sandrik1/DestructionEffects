@@ -71,16 +71,16 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>D:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="KSPUtil">
-      <HintPath>D:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\KSPUtil.dll</HintPath>
+      <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\KSPUtil.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>D:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,11 +102,7 @@
     <Folder Include="bin\Release\Plugins\" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug (
-"D:\pdb2mdb\pdb2mdb.exe" "$(TargetFileName)"
-xcopy /Y "$(TargetDir)$(TargetName).pdb" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"
-xcopy /Y "$(TargetDir)$(TargetName).dll.mdb" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"
-)
-xcopy /Y "$(TargetPath)" "D:\GAMES\KERBAL\Kerbal Space Program_DEV_11\GameData\DestructionEffects\Plugins"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
