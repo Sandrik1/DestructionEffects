@@ -18,7 +18,9 @@ namespace DestructionEffects
             "landingleg",
             "clamp",
             "gear",
-            "wheel"
+            "wheel",
+            "mast",
+            "heatshield"
         };
 
         public void Start()
@@ -68,20 +70,30 @@ namespace DestructionEffects
 
         private static bool ShouldFlamesBeAttached(PartJoint partJoint)
         {
+            if (partJoint.Parent.vessel.atmDensity <= 0.01)
+            {
+                return false;
+            }
             if (IsPartHostTypeAJointBreakerTrigger(partJoint.Host.name.ToLower()))
             {
                 return false;
             }
             var part = partJoint.Target;
-            if (part.partInfo.title.Contains("Wing") || part.partInfo.title.Contains("Fuselage")
-                || part.FindModuleImplementing<ModuleEngines>() || part.FindModuleImplementing<ModuleEnginesFX>())
+            if (part.partInfo.title.Contains("Wing") 
+                || part.partInfo.title.Contains("Fuselage") 
+                || part.partInfo.title.Contains("Bow") 
+                || part.partInfo.title.Contains("Stern") 
+                || part.partInfo.title.Contains("Hull") 
+                || part.partInfo.title.Contains("Superstructure") 
+                || part.FindModuleImplementing<ModuleEngines>() 
+                || part.FindModuleImplementing<ModuleEnginesFX>())
             {
                 return true;
             }
 
             return
                 part.Resources.Cast<PartResource>()
-                    .Any(resource => resource.resourceName.Contains("Fuel") || resource.resourceName.Contains("Ox"));
+                   .Any(resource => resource.resourceName.Contains("Fuel") || resource.resourceName.Contains("Ox") || resource.resourceName.Contains("Elec") || resource.resourceName.Contains("Amm") || resource.resourceName.Contains("Cann"));
         }
 
         private static bool IsPartHostTypeAJointBreakerTrigger(string hostPartName)

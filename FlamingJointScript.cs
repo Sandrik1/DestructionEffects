@@ -61,7 +61,7 @@ namespace DestructionEffects
                 }
             }
 
-            if (_destroyTimerStart != 0 && Time.time - _destroyTimerStart > _highestEnergy)
+            if (_destroyTimerStart != 0 && Time.time - _destroyTimerStart > _highestEnergy * 2)
             {
                 Destroy(gameObject);
             }

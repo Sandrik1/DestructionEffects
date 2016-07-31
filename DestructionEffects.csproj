@@ -76,6 +76,7 @@
     <Reference Include="KSPUtil">
       <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\KSPUtil.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>G:\GAMES\KERBAL\Kerbal Space Program_DEV_11\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -87,6 +88,7 @@
     <Compile Include="FlamingJoints.cs" />
     <Compile Include="DEGaplessParticleEmitter.cs" />
     <Compile Include="FlamingJointScript.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
