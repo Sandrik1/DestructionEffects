@@ -19,7 +19,7 @@ namespace DestructionEffects
             "clamp",
             "gear",
             "wheel",
-            "mast"
+            
         };
 
         public void Start()
@@ -37,10 +37,15 @@ namespace DestructionEffects
             {
                 return;
             }
-            if (!ShouldFlamesBeAttached(partJoint))
+		     if (!ShouldFlamesBeAttached(partJoint))
             {
                 return;
             }
+            // if part has module missile turret  part.FindModuleImplementing<ModuleMissileTurret>())
+            //  if (part.FindModuleImplementing<ModuleMissileTurret>())
+           // {
+           //     return;
+          //  }
 
             AttachFlames(partJoint);
         }
@@ -50,7 +55,7 @@ namespace DestructionEffects
             var flameObject2 =
                 (GameObject)
                     Instantiate(
-                        GameDatabase.Instance.GetModel("DestructionEffects/Models/FlameEffect/model"),
+                        GameDatabase.Instance.GetModel("DestructionEffects/Models/FlameEffect/model"),//Hard address for flame model
                         partJoint.transform.position,
                         Quaternion.identity);
 
@@ -73,8 +78,9 @@ namespace DestructionEffects
             {
                 return false;
             }
+          
             var part = partJoint.Target;//SM edit for DE on ships and ship parts, adding bow, hull, stern, superstructure
-            if (part.partInfo.title.Contains("Wing") || part.partInfo.title.Contains("Fuselage")|| part.partInfo.title.Contains("Bow")|| part.partInfo.title.Contains("Stern")|| part.partInfo.title.Contains("Hull")|| part.partInfo.title.Contains("Superstructure")|| part.FindModuleImplementing<ModuleEngines>() || part.FindModuleImplementing<ModuleEnginesFX>())
+            if (part.partInfo.title.Contains("Wing") || part.partInfo.title.Contains("Fuselage")|| part.partInfo.title.Contains("Bow")|| part.partInfo.title.Contains("Stern")|| part.partInfo.title.Contains("Hull")|| part.partInfo.title.Contains("Superstructure")|| part.partInfo.title.Contains("Turret") || part.FindModuleImplementing<ModuleEngines>() || part.FindModuleImplementing<ModuleEnginesFX>())
             {
                 return true;
             }
