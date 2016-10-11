@@ -19,7 +19,8 @@ namespace DestructionEffects
             "clamp",
             "gear",
             "wheel",
-            "turret",
+            "Turret",
+            "MissileLauncher"
 
         };
         //1553 void OnPartJointBreak(PartJoint j, float breakForce)
