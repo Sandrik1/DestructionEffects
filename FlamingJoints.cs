@@ -90,7 +90,7 @@ namespace DestructionEffects
             }
 
             return
-                part.Resources.Cast<PartResource>()//SM edit adding EC Ammo and Cannonshells
+                part.Resources//SM edit adding EC Ammo and Cannonshells
                     .Any(resource => resource.resourceName.Contains("Fuel") || resource.resourceName.Contains("Ox") || resource.resourceName.Contains("Elec") || resource.resourceName.Contains("Amm") || resource.resourceName.Contains("Cann"));
         }
 
