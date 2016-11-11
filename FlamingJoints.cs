@@ -26,9 +26,10 @@ namespace DestructionEffects
         public void Start()
         {
             GameEvents.onPartJointBreak.Add(OnPartJointBreak);
+            
         }
 
-        public void OnPartJointBreak(PartJoint partJoint)
+        public void OnPartJointBreak(PartJoint partJoint,float breakForce)
         {
             if (partJoint.Target == null)
             {
