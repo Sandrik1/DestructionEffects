@@ -1,3 +1,4 @@
+//1.2pre
 using UnityEngine;
 
 namespace DestructionEffects
@@ -24,20 +25,19 @@ namespace DestructionEffects
                 Debug.Log("Part " + Part.partName + "'s explosionPotential: " + Part.explosionPotential);
             }
 
-            MaxDistance = PEmitter.minSize/3;
+            MaxDistance = PEmitter.minSize / 3;
         }
 
         private void FixedUpdate()
         {
             if (!Emit) return;
 
-
             var velocity = Part?.GetComponent<Rigidbody>().velocity ?? Rb.velocity;
             var originalLocalPosition = gameObject.transform.localPosition;
             var originalPosition = gameObject.transform.position;
-            var startPosition = gameObject.transform.position + velocity*Time.fixedDeltaTime;
+            var startPosition = gameObject.transform.position + velocity * Time.fixedDeltaTime;
             var originalGapDistance = Vector3.Distance(originalPosition, startPosition);
-            var intermediateSteps = originalGapDistance/MaxDistance;
+            var intermediateSteps = originalGapDistance / MaxDistance;
 
             PEmitter.EmitParticle();
             gameObject.transform.position = Vector3.MoveTowards(
@@ -60,9 +60,9 @@ namespace DestructionEffects
             var velocity = Part?.GetComponent<Rigidbody>().velocity ?? Rb.velocity;
             var originalLocalPosition = gameObject.transform.localPosition;
             var originalPosition = gameObject.transform.position;
-            var startPosition = gameObject.transform.position + velocity*Time.fixedDeltaTime;
+            var startPosition = gameObject.transform.position + velocity * Time.fixedDeltaTime;
             var originalGapDistance = Vector3.Distance(originalPosition, startPosition);
-            var intermediateSteps = originalGapDistance/MaxDistance;
+            var intermediateSteps = originalGapDistance / MaxDistance;
 
             //gameObject.transform.position = startPosition;
             for (var i = 0; i < intermediateSteps; i++)
