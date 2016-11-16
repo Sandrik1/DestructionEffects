@@ -7,7 +7,7 @@ namespace DestructionEffects
     {
         private readonly float _maxCombineDistance = 0.6f;
 
-        private readonly float _shrinkRateFlame = 0.4f; // from 0.35f //from 0.75f //from 1.75f
+        private readonly float _shrinkRateFlame = 0.25f; // from 0.35f //from 0.75f //from 1.75f
 
         private readonly float _shrinkRateSmoke = 0.1f;   //from 1f//from 2f//
         private GameObject _destroyer;

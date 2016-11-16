@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DESettings.cs" />
     <Compile Include="FlamingJoints.cs" />
     <Compile Include="DEGaplessParticleEmitter.cs" />
     <Compile Include="FlamingJointScript.cs" />
@@ -108,11 +109,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Distribution\GameData\DestructionEffects\ChangeLog.txt" />
     <Content Include="Distribution\GameData\DestructionEffects\License.txt" />
-    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect\flameA.png" />
-    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect\flameD.png" />
-    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect\muzzleSmoke.png" />
-    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect\Torchanimation_135.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\flameA.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\flameD.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\muzzleSmoke.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\Torchanimation_135.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\ExpTex2.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\smoke.png" />
     <Content Include="Distribution\GameData\DestructionEffects\Plugins\DestructionEffects.dll" />
     <Content Include="LocalDev\7za_dir.txt" />
     <Content Include="LocalDev\dist_dir.txt" />
@@ -122,7 +126,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Distribution\GameData\DestructionEffects\Models\FlameEffect\model.mu" />
+    <None Include="Distribution\GameData\DestructionEffects\DestructionEffects.version" />
+    <None Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\model.mu" />
+    <None Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\model.mu" />
+    <None Include="Distribution\GameData\DestructionEffects\settings.cfg" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>@echo $(Targetname)
