@@ -43,8 +43,9 @@ namespace DestructionEffects
             {
                 return;
             }
-            if (breakForce == float.PositiveInfinity || breakForce <= 0)
+            if (breakForce == float.PositiveInfinity || breakForce < 0)
             {
+                Debug.Log("DestructionEffects: Not effect due to breaking force negative or infinity");
                 return;
             }
             if (!ShouldFlamesBeAttached(partJoint))
