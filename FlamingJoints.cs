@@ -81,6 +81,7 @@ namespace DestructionEffects
                 if (!pe.useWorldSpace) continue;
 
                 var gpe = pe.gameObject.AddComponent<DeGaplessParticleEmitter>();
+                EffectBehaviour.AddParticleEmitter(gpe.PEmitter);
                 gpe.Part = partJoint.Target;
                 gpe.Emit = true;
             }
@@ -88,7 +89,12 @@ namespace DestructionEffects
 
         private static bool ShouldFlamesBeAttached(PartJoint partJoint)
         {
-            if (partJoint.Parent.vessel.atmDensity <= 0.01)
+            if (partJoint == null) return false;
+            if (partJoint.Host == null) return false;
+            if (partJoint.Target == null) return false;
+
+
+            if (partJoint.Parent?.vessel?.atmDensity <= 0.01)
             {
                 return false;
             }

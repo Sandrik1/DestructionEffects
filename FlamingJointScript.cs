@@ -63,12 +63,17 @@ namespace DestructionEffects
 
             if (_destroyTimerStart != 0 && Time.time - _destroyTimerStart > _highestEnergy)
             {
-                Destroy(gameObject);
+                   Destroy(gameObject);
             }
         }
 
         private void OnDestroy()
         {
+            foreach (var pe in gameObject.GetComponentsInChildren<KSPParticleEmitter>())
+            {
+                EffectBehaviour.RemoveParticleEmitter(pe);
+            }
+
             if (FlamingJoints.FlameObjects.Contains(gameObject))
             {
                 FlamingJoints.FlameObjects.Remove(gameObject);
