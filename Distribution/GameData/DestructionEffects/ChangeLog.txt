@@ -1,3 +1,8 @@
+v1.3
+- Compiled for KSP 1.2.2.
+- Fixing some exceptions.
+- Fixing particle system.
+
 v1.2
 - Compiled for KSP 1.2.1
 - Add settings file to enable legacy effects (default value is disabled)
