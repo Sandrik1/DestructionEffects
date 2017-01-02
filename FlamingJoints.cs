@@ -94,7 +94,7 @@ namespace DestructionEffects
             if (partJoint.Target == null) return false;
 
 
-            if (partJoint.Parent?.vessel?.atmDensity <= 0.01)
+            if (partJoint.Parent != null && partJoint.Parent.vessel.atmDensity < .001f)
             {
                 return false;
             }
