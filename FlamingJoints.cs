@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +12,9 @@ namespace DestructionEffects
         private const string LegacyFlameModelPath = "DestructionEffects/Models/FlameEffect_Legacy/model";
 
         public static List<GameObject> FlameObjects = new List<GameObject>();
-        public static List<string> PartTypesTriggeringUnwantedJointBreakEvents = new List<string>(9)
+
+
+        private static readonly string[] PartTypesTriggeringUnwantedJointBreakEvents = new string[12]
         {
             "decoupler",
             "separator",
@@ -25,8 +28,8 @@ namespace DestructionEffects
             "heatshield",
             "Turret",
             "MissileLauncher"
-
         };
+
         //1553 void OnPartJointBreak(PartJoint j, float breakForce)
         public void Start()
         {
@@ -81,7 +84,6 @@ namespace DestructionEffects
                 if (!pe.useWorldSpace) continue;
 
                 var gpe = pe.gameObject.AddComponent<DeGaplessParticleEmitter>();
-                EffectBehaviour.AddParticleEmitter(gpe.PEmitter);
                 gpe.Part = partJoint.Target;
                 gpe.Emit = true;
             }
@@ -91,13 +93,18 @@ namespace DestructionEffects
         {
             if (partJoint == null) return false;
             if (partJoint.Host == null) return false;
+            if (!partJoint.Host) return false;
             if (partJoint.Target == null) return false;
+            if (!partJoint.Target) return false;
 
-
-            if (partJoint.Parent?.vessel?.atmDensity <= 0.01)
+            if (partJoint.Parent != null && partJoint.Parent.vessel != null)
             {
-                return false;
+                 if (partJoint.Parent.vessel.atmDensity <= 0.1)
+                    {
+                        return false;
+                    }
             }
+
             if (IsPartHostTypeAJointBreakerTrigger(partJoint.Host.name.ToLower()))
             {
                 return false;
@@ -111,8 +118,8 @@ namespace DestructionEffects
                 part.partInfo.title.Contains("Stern") || 
                 part.partInfo.title.Contains("Hull") || 
                 part.partInfo.title.Contains("Superstructure") || 
-                part.FindModuleImplementing<ModuleEngines>() || 
-                part.FindModuleImplementing<ModuleEnginesFX>())/*|| part.partInfo.title.Contains("Turret") */
+                part.FindModuleImplementing<ModuleEngines>() != null || 
+                part.FindModuleImplementing<ModuleEnginesFX>() != null )/*|| part.partInfo.title.Contains("Turret") */
             {
                 return true;
             }
@@ -128,7 +135,7 @@ namespace DestructionEffects
 
         private static bool IsPartHostTypeAJointBreakerTrigger(string hostPartName)
         {
-            return PartTypesTriggeringUnwantedJointBreakEvents.Any(x => hostPartName.Contains(x));
+            return PartTypesTriggeringUnwantedJointBreakEvents.Any(hostPartName.Contains);
         }
     }
 }
