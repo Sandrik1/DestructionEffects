@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -84,9 +84,25 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\..\..\Games\KSP\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>G:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="KSPAssets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>G:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\KSPAssets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>G:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>G:\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DESettings.cs" />
     <Compile Include="FlamingJoints.cs" />
     <Compile Include="DEGaplessParticleEmitter.cs" />
     <Compile Include="FlamingJointScript.cs" />
@@ -100,10 +116,27 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Release\DestructionEffects.dll" />
+    <Content Include="Distribution\GameData\DestructionEffects\ChangeLog.txt" />
+    <Content Include="Distribution\GameData\DestructionEffects\License.txt" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\flameA.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\flameD.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\muzzleSmoke.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\Torchanimation_135.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\ExpTex2.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\smoke.png" />
+    <Content Include="Distribution\GameData\DestructionEffects\Plugins\DestructionEffects.dll" />
+    <Content Include="LocalDev\7za_dir.txt" />
+    <Content Include="LocalDev\dist_dir.txt" />
+    <Content Include="LocalDev\ksp_dir.txt" />
+    <Content Include="LocalDev\mono_exe.txt" />
+    <Content Include="LocalDev\pdb2mdb_exe.txt" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="bin\Release\Plugins\" />
+    <None Include="Distribution\GameData\DestructionEffects\DestructionEffects.version" />
+    <None Include="Distribution\GameData\DestructionEffects\Models\FlameEffect2\model.mu" />
+    <None Include="Distribution\GameData\DestructionEffects\Models\FlameEffect_Legacy\model.mu" />
+    <None Include="Distribution\GameData\DestructionEffects\settings.cfg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -121,6 +154,7 @@ set /p DIST_DIR=&lt;"$(ProjectDir)LocalDev\dist_dir.txt"
 @echo distributing $(Targetname) files...
 copy /Y "$(TargetPath)" "$(ProjectDir)Distribution\GameData\%25ModName%25\Plugins\"
 copy /Y "$(TargetPath)" "C:\Users\dlane\Dropbox\Kerbal\ModDevelopment\Release"
+copy /Y "$(TargetPath)" "$(ProjectDir)Distribution\GameData\DestructionEffects\Plugins\"
 
 if $(ConfigurationName) == Debug (
 @echo building $(Targetname).dll.mdb file...
@@ -133,6 +167,12 @@ copy /Y "$(TargetDir)$(Targetname).dll.mdb" "%25KSP_DIR%25\GameData\%25ModName%2
 if exist "%25DIST_DIR%25\%25ModName%25*.zip" del "%25DIST_DIR%25\%25ModName%25*.zip"
 @echo packaging new build...
 call "%25ZA_DIR%25\7za.exe" a -tzip -r  "%25DIST_DIR%25\%25ModName%25.@(VersionNumber)_%25DATE:~4,2%25%25DATE:~7,2%25%25DATE:~10,4%25.zip" "$(ProjectDir)Distribution\*.*"
+copy /Y "$(TargetDir)$(Targetname).dll.mdb" "%25KSP_DIR%25\GameData\DestructionEffects\Plugins\"
+)
+
+@echo packaging files...
+if exist "%25DIST_DIR%25\DestructionEffects*.zip" del "%25DIST_DIR%25\DestructionEffects*.zip"
+call "%25ZA_DIR%25\7za.exe" a -tzip -r  "%25DIST_DIR%25\DestructionEffects.@(VersionNumber)_%25DATE:~4,2%25%25DATE:~7,2%25%25DATE:~10,4%25.zip" "$(ProjectDir)Distribution\*.*"
 
 @echo Deploy $(Targetname) Distribution files to test env:  %25KSP_DIR%25\GameData...
 @echo copying:"$(SolutionDir)Distribution\GameData" to "%25KSP_DIR%25\GameData" 
@@ -140,6 +180,7 @@ xcopy /E /Y "$(SolutionDir)Distribution\GameData" "%25KSP_DIR%25\GameData"
 
 if $(ConfigurationName) == Debug (
 copy /Y "$(TargetDir)$(Targetname).pdb" "%25KSP_DIR%25\GameData\%25ModName%25\Plugins\"
+copy /Y "$(TargetDir)$(Targetname).pdb" "%25KSP_DIR%25\GameData\DestructionEffects\Plugins\"
 )
 
 @echo Build/deploy complete!</PostBuildEvent>
