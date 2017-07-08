@@ -11,10 +11,9 @@ namespace DestructionEffects
         private const string NewFlameModelPath = "DestructionEffects/Models/FlameEffect2/model";
         private const string LegacyFlameModelPath = "DestructionEffects/Models/FlameEffect_Legacy/model";
 
-        public static List<GameObject> FlameObjects = new List<GameObject>();
+        public static List<GameObject> FlameObjects = new List<GameObject>();             
 
-
-        private static readonly string[] PartTypesTriggeringUnwantedJointBreakEvents = new string[12]
+        private static string[] PartTypesTriggeringUnwantedJointBreakEvents = new string[]
         {
             "decoupler",
             "separator",
@@ -26,14 +25,28 @@ namespace DestructionEffects
             "wheel",
             "mast",
             "heatshield",
-            "Turret",
-            "MissileLauncher"
+            "turret",
+            "missilelauncher",
+            "moudleturret",
+            "missileturret",
+            "missilefire",
+            "kas.",
+            "kis.",
+            "cport,",
+            "torpedo",
+            "slw",
+            "mortar",
+            "hedg"
         };
+
+        private static string[] _PartTypesTriggeringUnwantedJointBreakEvents = new string[DESettings.PartIgnoreList.Length + PartTypesTriggeringUnwantedJointBreakEvents.Length];
 
         //1553 void OnPartJointBreak(PartJoint j, float breakForce)
         public void Start()
         {
             GameEvents.onPartJointBreak.Add(OnPartJointBreak);
+            PartTypesTriggeringUnwantedJointBreakEvents.CopyTo(_PartTypesTriggeringUnwantedJointBreakEvents,0);
+            DESettings.PartIgnoreList.CopyTo(_PartTypesTriggeringUnwantedJointBreakEvents, PartTypesTriggeringUnwantedJointBreakEvents.Length);
         }
 
         public void OnPartJointBreak(PartJoint partJoint, float breakForce)
@@ -96,6 +109,7 @@ namespace DestructionEffects
             if (!partJoint.Host) return false;
             if (partJoint.Target == null) return false;
             if (!partJoint.Target) return false;
+            
 
             if (partJoint.Parent != null && partJoint.Parent.vessel != null)
             {
@@ -111,6 +125,10 @@ namespace DestructionEffects
             }
 
             var part = partJoint.Target;//SM edit for DE on ships and ship parts, adding bow, hull, stern, superstructure
+
+            if (part.partInfo.name.Contains("KAS") ||
+                part.partInfo.name.Contains("KIS"))
+                return false;
 
             if (part.partInfo.title.Contains("Wing") || 
                 part.partInfo.title.Contains("Fuselage") || 
@@ -135,7 +153,7 @@ namespace DestructionEffects
 
         private static bool IsPartHostTypeAJointBreakerTrigger(string hostPartName)
         {
-            return PartTypesTriggeringUnwantedJointBreakEvents.Any(hostPartName.Contains);
+            return _PartTypesTriggeringUnwantedJointBreakEvents.Any(hostPartName.Contains);
         }
     }
 }
