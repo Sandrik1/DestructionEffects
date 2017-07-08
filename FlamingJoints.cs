@@ -13,7 +13,7 @@ namespace DestructionEffects
 
         public static List<GameObject> FlameObjects = new List<GameObject>();             
 
-        private static string[] PartTypesTriggeringUnwantedJointBreakEvents = new string[]
+        private static readonly string[] PartTypesTriggeringUnwantedJointBreakEvents = new string[]
         {
             "decoupler",
             "separator",
@@ -39,7 +39,7 @@ namespace DestructionEffects
             "hedg"
         };
 
-        private static string[] _PartTypesTriggeringUnwantedJointBreakEvents = new string[DESettings.PartIgnoreList.Length + PartTypesTriggeringUnwantedJointBreakEvents.Length];
+        private static readonly string[] _PartTypesTriggeringUnwantedJointBreakEvents = new string[DESettings.PartIgnoreList.Length + PartTypesTriggeringUnwantedJointBreakEvents.Length];
 
         //1553 void OnPartJointBreak(PartJoint j, float breakForce)
         public void Start()
@@ -109,46 +109,56 @@ namespace DestructionEffects
             if (!partJoint.Host) return false;
             if (partJoint.Target == null) return false;
             if (!partJoint.Target) return false;
-            
 
             if (partJoint.Parent != null && partJoint.Parent.vessel != null)
             {
-                 if (partJoint.Parent.vessel.atmDensity <= 0.1)
-                    {
-                        return false;
-                    }
+                if (partJoint.Parent.vessel.atmDensity <= 0.1)
+                {
+                    return false;
+                }
+            }
+
+            var part = partJoint.Target;//SM edit for DE on ships and ship parts, adding bow, hull, stern, superstructure
+
+            if (partJoint.Target.FindModulesImplementing<ModuleDecouple>().Count > 0)
+
+            {
+                return false;
+            }
+
+            if (partJoint.Target.Modules.Contains("ModuleTurret"))
+
+            {
+                return false;
+            }
+
+            if (part.Resources
+                .Any(resource => resource.resourceName.Contains("Fuel") ||
+                                 resource.resourceName.Contains("Ox") ||
+                                 resource.resourceName.Contains("Elec") ||
+                                 resource.resourceName.Contains("Amm") ||
+                                 resource.resourceName.Contains("Cann")))
+            {
+                return true;
+            }
+                
+            if (part.partInfo.title.Contains("Wing") ||
+                part.partInfo.title.Contains("Fuselage") ||
+                part.partInfo.title.Contains("Bow") ||
+                part.partInfo.title.Contains("Stern") ||
+                part.partInfo.title.Contains("Hull") ||
+                part.partInfo.title.Contains("Superstructure") ||
+                part.FindModuleImplementing<ModuleEngines>() != null ||
+                part.FindModuleImplementing<ModuleEnginesFX>() != null)/*|| part.partInfo.title.Contains("Turret") */
+            {
+                return true;
             }
 
             if (IsPartHostTypeAJointBreakerTrigger(partJoint.Host.name.ToLower()))
             {
                 return false;
             }
-
-            var part = partJoint.Target;//SM edit for DE on ships and ship parts, adding bow, hull, stern, superstructure
-
-            if (part.partInfo.name.Contains("KAS") ||
-                part.partInfo.name.Contains("KIS"))
-                return false;
-
-            if (part.partInfo.title.Contains("Wing") || 
-                part.partInfo.title.Contains("Fuselage") || 
-                part.partInfo.title.Contains("Bow") || 
-                part.partInfo.title.Contains("Stern") || 
-                part.partInfo.title.Contains("Hull") || 
-                part.partInfo.title.Contains("Superstructure") || 
-                part.FindModuleImplementing<ModuleEngines>() != null || 
-                part.FindModuleImplementing<ModuleEnginesFX>() != null )/*|| part.partInfo.title.Contains("Turret") */
-            {
-                return true;
-            }
-
-            return
-                part.Resources//SM edit adding EC Ammo and Cannonshells
-                    .Any(resource => resource.resourceName.Contains("Fuel") || 
-                    resource.resourceName.Contains("Ox") || 
-                    resource.resourceName.Contains("Elec") || 
-                    resource.resourceName.Contains("Amm") || 
-                    resource.resourceName.Contains("Cann"));
+            return false;
         }
 
         private static bool IsPartHostTypeAJointBreakerTrigger(string hostPartName)
