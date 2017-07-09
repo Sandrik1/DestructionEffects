@@ -1,7 +1,7 @@
 ﻿{
   "NAME": "DestructionEffects",
   "URL": "https://raw.githubusercontent.com/jrodrigv/DestructionEffects/master/Distribution/GameData/DestructionEffects/DestructionEffects.version",
-  "DOWNLOAD": "https://github.com/jrodrigv/DestructionEffects/releases",
+  "DOWNLOAD": "https://github.com/jrodrigv/DestructionEffects/releases/tag/v1.5.0",
   "GITHUB": {
     "USERNAME": "jrodrigv",
     "REPOSITORY": "DestructionEffects",
@@ -9,14 +9,14 @@
   },
   "VERSION": {
     "MAJOR": 1,
-    "MINOR": 4,
+    "MINOR": 5,
     "PATCH": 0,
     "BUILD": 0
   },
   "KSP_VERSION": {
     "MAJOR": 1,
-    "MINOR": 2,
-    "PATCH": 9
+    "MINOR": 3,
+    "PATCH": 0
   },
   "KSP_VERSION_MIN": {
     "MAJOR": 1,
@@ -25,7 +25,7 @@
   },
   "KSP_VERSION_MAX": {
     "MAJOR": 1,
-    "MINOR": 2,
+    "MINOR": 3,
     "PATCH": 9
   }
 }
