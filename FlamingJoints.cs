@@ -131,6 +131,10 @@ namespace DestructionEffects
             {
                 return false;
             }
+            if (IsPartHostTypeAJointBreakerTrigger(partJoint.Host.name.ToLower()))
+            {
+                return false;
+            }
 
             if (part.Resources
                 .Any(resource => resource.resourceName.Contains("Fuel") ||
@@ -154,10 +158,7 @@ namespace DestructionEffects
                 return true;
             }
 
-            if (IsPartHostTypeAJointBreakerTrigger(partJoint.Host.name.ToLower()))
-            {
-                return false;
-            }
+          
             return false;
         }
 
